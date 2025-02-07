@@ -11,7 +11,7 @@ const Footer = ()=>{
         <div className="bg-zinc-200 bottom-0">
             <div className="px-32 py-10 flex justify-evenly gap-10 items-start">
                 <div className='flex justify-start items-center'>
-                    <img src={Logo} className='w-[50px] mr-2'/> <span className='font-bold text-xl text-orange-600 items-center'>Swiggy-LTS</span>
+                    <img src={Logo} className='w-[50px] mr-2'/> <span className='font-bold text-xl text-orange-600 items-center'>Swiggy</span>
                 </div>
                 <div className='flex justify-between gap-20'>
                     <div className="font-semibold text-lg leading-10">
@@ -89,11 +89,11 @@ const Footer = ()=>{
                     For better experience, download the Swiggy app now
                 </div>
                 <div className='flex justify-evenly gap-5'>
-                    <a href="https://apps.apple.com/in/app/swiggy-food-instamart-dineout/id989540920" target='_blank'>
+                    <a href="https://apps.apple.com/in/app/swiggy-food-instamart-dineout/id989540920" target='_blank' className='cursor-pointer'>
                         <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_200,h_65/icon-AppStore_lg30tv" alt="AppStore" />
                     </a>
 
-                    <a href="https://play.google.com/store/apps/details?id=in.swiggy.android&referrer=utm_source%3Dswiggy%26utm_medium%3Dheader" target='_blank'>
+                    <a href="https://play.google.com/store/apps/details?id=in.swiggy.android&referrer=utm_source%3Dswiggy%26utm_medium%3Dheader" target='_blank' className='cursor-pointer'>
                         <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_200,h_65/icon-GooglePlay_1_zixjxl" alt="GooglePlay" />
                     </a>
                 </div>
