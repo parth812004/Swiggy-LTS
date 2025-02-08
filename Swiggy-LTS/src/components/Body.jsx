@@ -1,9 +1,10 @@
+import CardContainer from './CardContainer'
 
 const Body = () =>{
     return (
-        <>
-            <h1>I'm body component</h1>
-        </>
+        <div className='flex flex-wrap'>
+            <CardContainer/>
+        </div>
     )
 }
 
