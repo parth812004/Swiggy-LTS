@@ -2,7 +2,7 @@ import CardContainer from './CardContainer'
 
 const Body = () =>{
     return (
-        <div className='flex flex-wrap'>
+        <div>
             <CardContainer/>
         </div>
     )
