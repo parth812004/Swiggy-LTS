@@ -60,7 +60,7 @@ const CardContainer = () => {
 
     return (
         <div className="justify-center">
-            <button className="border-black bg-gray-500 p-2 mt-5 rounded-md" onClick={filterRestaurants}>Filter out the best restaurants</button>
+            <button className="border-black bg-gray-300 p-2 mt-5 rounded-md hover:bg-gray-400" onClick={filterRestaurants}>Filter out the best restaurants</button>
             <div className="px-10 py-5">
                 <h1 className="font-semibold py-5 px-5 text-xl justify-center">Top restaurant chains in Mumbai</h1>
                 <div className='flex flex-wrap justify-center'>
