@@ -70,11 +70,11 @@ const CardContainer = () => {
     getRestaurantData()
 
     return (
-        <div className="justify-center">
-            <button className="border-black bg-gray-300 p-2 mx-5 my-5 rounded-md hover:bg-gray-400" onClick={filterRestaurants}>Filter out the best restaurants</button>
+        <div className="flex justify-center">
             <div className="px-10 py-5">
-                <h1 className="font-semibold py-5 px-5 text-xl justify-center">Top restaurant chains in Mumbai</h1>
-                <div className='flex flex-wrap justify-center'>
+                <button className="border-black bg-gray-300 p-2 mx-5 my-5 rounded-md hover:bg-gray-400" onClick={filterRestaurants}>Filter out the best restaurants</button>
+                <h1 className="font-semibold py-5 px-5 text-xl flex justify-start">Top restaurant chains in Mumbai</h1>
+                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
                     {
                         bestRestaurants.map((restaurant) => {
                             return <RestaurantCard 
