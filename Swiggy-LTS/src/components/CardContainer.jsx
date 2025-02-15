@@ -1,6 +1,7 @@
 import RestaurantCard from './RestaurantCard'
 import { useState } from 'react'
-import { restaurantDetails } from '../constants/config'
+import { restaurantDetails, API_URL } from '../constants/config'
+
 const CardContainer = () => {
     // const restaurantDetails = [
     //     {   
@@ -49,7 +50,7 @@ const CardContainer = () => {
 
     const [bestRestaurants,setBestRestaurants] = useState(restaurantDetails)
     const filterRestaurants = () =>{
-        const filteredData = bestRestaurants.filter((restaurant) => {
+        const filteredData = restaurantDetails.filter((restaurant) => {
             return restaurant.rating >= 4.5;
         })
 
@@ -57,6 +58,16 @@ const CardContainer = () => {
         console.log(filteredData)
     }
 
+
+    const getRestaurantData = async() =>{
+        const response = await fetch(API_URL)
+        const data = await response.json()
+        console.log("(TEST)Food = ",data.data.cards[0].card.card.imageGridCards.info[0].action.text) 
+        console.log("food data= ",data.data.cards[0].card.card.imageGridCards.info) 
+        console.log("restaurant data= ",data.data.cards[1].card.card.gridElements.infoWithStyle.restaurants) 
+    }
+
+    getRestaurantData()
 
     return (
         <div className="justify-center">
@@ -70,7 +81,6 @@ const CardContainer = () => {
                             {...restaurant}/>
                         })
                     }
-                
                 </div>
             </div>
         </div>

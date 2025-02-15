@@ -1,12 +1,12 @@
 
 const RestautantCard = ({name,rating,deliveryTime,cuisines,location}) =>{ 
-    {/* Can also write const RestautantCard = (props) =>{
-    {props.name}
-    {props.rating}, etc. in code} 
-    */}
+    //{/* Can also write const RestautantCard = (props) =>{
+    //{props.name}
+    //{props.rating}, etc. in code} 
+    //*/}
     return(
         <div className="px-5">
-            <div class="flex flex-row py-3 w-[300px] h-[200px]">
+            <div className="flex flex-row py-3 w-[300px] h-[200px]">
                 <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/e0839ff574213e6f35b3899ebf1fc597" className=" w-full h-full object-cover rounded-2xl" alt="Chinese Wok" />
             </div>
             <div className="leading-6">
