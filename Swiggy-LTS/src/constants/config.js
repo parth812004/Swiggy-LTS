@@ -1,10 +1,10 @@
 export const restaurantDetails = [
     {   
         name:"Chinese Wok1",
-        rating:"4.0",
+        avgRating:"4.0",
         deliveryTime:"35-40mins",
         cuisines:"Chinese, Asian, Tibetian, Desserts",
-        location:"Santacruz East"
+        locality:"Santacruz East"
     },
     {   
         name:"Chinese Wok2",
@@ -43,5 +43,6 @@ export const restaurantDetails = [
     }
 ]
 
+export const IMG_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/"
 
 export const API_URL="https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.07480&lng=72.88560&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
