@@ -1,6 +1,7 @@
 import RestaurantCard from './RestaurantCard'
 import { useState,useEffect } from 'react'
 import { API_URL,IMG_URL, restaurantDetails } from '../constants/config'
+import ShimmerCard from './ShimmerCard'
 
 
 const CardContainer = () => {
@@ -59,11 +60,12 @@ console.log("Page rendered")
             <div className="px-4 py-5 w-full">
                 <button className="border-black bg-gray-300 p-2 mx-5 my-5 rounded-md hover:bg-gray-400" onClick={filterRestaurants}>Filter out the best restaurants</button>
                 <h1 className="font-semibold py-5 px-5 text-xl flex justify-start">Top restaurant chains in Mumbai</h1>
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-                    {
+                <div className='flex flex-wrap justify-center gap-3'>
+                    {bestRestaurants.length === 0 ? <ShimmerCard /> : 
                         bestRestaurants.map((restaurant) => {
                             return <RestaurantCard 
-                            {...restaurant?.info}/>
+                            key={restaurant?.info?.id}
+                            {...restaurant?.info} />
                         })
                     }
                 </div>
