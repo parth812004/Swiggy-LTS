@@ -1,8 +1,10 @@
 import RestaurantCard from './RestaurantCard'
 import { useState,useEffect } from 'react'
-import { API_URL,IMG_URL, restaurantDetails } from '../constants/config'
+import { API_URL,IMG_URL } from '../constants/config'
 import ShimmerCard from './ShimmerCard'
 
+
+// RESUME FROM 22:00(21/2/2025 Lecture)
 
 const CardContainer = () => {
     const restaurantDetails = []
@@ -10,13 +12,38 @@ const CardContainer = () => {
 
     useEffect(() => {
         const getRestaurantData = async () => {
+            const response = await fetch(API_URL);
             try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                const restaurants = data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-                setBestRestaurants(restaurants);
+                if(response.ok)
+                {
+                    console.log("response",response)
+                    const data = await response.json();
+                    const restaurants = data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+                    setBestRestaurants(restaurants);
+                }
+                else
+                {
+                    console.log("Error code: ",response.status)
+                    // throw new Error("Something went wrong...")
+                    if(response.status===400)
+                    {
+                        throw new Error("Bad Request, please contact the support team")
+                    }
+                    if(response.status===401)
+                    {
+                        throw new Error("Unauthorized request, kindly provide credentials")
+                    }
+                    if(response.status===403)
+                    {
+                        throw new Error("The requested content is forbidden")
+                    }
+                    if(response.status===404)
+                    {
+                        throw new Error("The server cannot find the requested resource")
+                    }
+                }
             } catch (error) {
-                console.log("Error: ", error);
+                console.log("Error- ", error);
             }
         };
         getRestaurantData();
