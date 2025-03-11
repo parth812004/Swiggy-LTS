@@ -3,12 +3,14 @@ import { useState,useEffect } from 'react'
 import { API_URL,IMG_URL } from '../constants/config'
 import ShimmerCard from './ShimmerCard'
 
-
-// RESUME FROM 22:00(21/2/2025 Lecture)
+// RESUME FROM 41:00(21/2/2025 Lecture)
 
 const CardContainer = () => {
     const restaurantDetails = []
-    const [bestRestaurants, setBestRestaurants] = useState([]);
+    const [restaurantList,setRestaurantList] = useState([]);
+    const [searchText,setSearchText] = useState("")
+    const [errorMessage,setErrorMessage] = useState("");
+
 
     useEffect(() => {
         const getRestaurantData = async () => {
@@ -19,7 +21,7 @@ const CardContainer = () => {
                     console.log("response",response)
                     const data = await response.json();
                     const restaurants = data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-                    setBestRestaurants(restaurants);
+                    setRestaurantList(restaurants);
                 }
                 else
                 {
@@ -41,9 +43,14 @@ const CardContainer = () => {
                     {
                         throw new Error("The server cannot find the requested resource")
                     }
+                    else
+                    {
+                        throw new Error("Something went wrong...")
+                    }
                 }
             } catch (error) {
-                console.log("Error- ", error);
+                setErrorMessage(error.message);
+                console.log("Error: ", error.message);
             }
         };
         getRestaurantData();
@@ -51,53 +58,97 @@ const CardContainer = () => {
 
     const filterRestaurants = () =>{
         console.log("Checking best restaurants near you...")
-        const filteredData = bestRestaurants.filter((restaurant) => {
+        const filteredData = restaurantList.filter((restaurant) => {
             return restaurant?.info?.avgRating >= 4.5;
         })
-        setBestRestaurants(filteredData)
+        setRestaurantList(filteredData)
         console.log("filteredData= ", filteredData)
     }
 
-useEffect(()=>{
-    console.log("useEffect() called")
-    try 
-    {
-        const getRestaurantData = async() =>{
-            const response = await fetch(API_URL)
-            const data = await response.json()
-            const restaurants = data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-            // console.log("(TEST)Food = ",data?.data?.cards[0]?.card?.card?.imageGridCards?.info[0]?.action?.text) 
-            // console.log("food data= ",data?.data?.cards[0]?.card?.card?.imageGridCards?.info) 
-            // console.log("restaurant data= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) 
-            // console.log("restaurantDetails[]= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-            console.log("avgRating= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants?.info?.avgRating)
-        }
-        getRestaurantData()
-    } 
-    catch (error) 
-    {
-        console.log("Error: ",error)
+    let handleSearchText = (text) =>{
+        setSearchText(text)
     }
-},[])
+
+    const handleSearch = () => {
+        const newData = restaurantList.filter((restaurant)=> (restaurant?.info?.name.includes(searchText)))
+        console.log("newData: ",newData)
+        setRestaurantList(newData)
+    }
+
+    useEffect(()=>{
+        console.log("useEffect() called")
+        try 
+        {
+            const getRestaurantData = async() =>{
+                const response = await fetch(API_URL)
+                const data = await response.json()
+                const restaurants = data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+                // console.log("(TEST)Food = ",data?.data?.cards[0]?.card?.card?.imageGridCards?.info[0]?.action?.text) 
+                // console.log("food data= ",data?.data?.cards[0]?.card?.card?.imageGridCards?.info) 
+                // console.log("restaurant data= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) 
+                // console.log("restaurantDetails[]= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+                console.log("avgRating= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants?.info?.avgRating)
+            }
+            getRestaurantData()
+        } 
+        catch (error) 
+        {
+            console.log("Error: ",error)
+        }
+    },[])
     
-console.log("Page rendered")
+    console.log("Page rendered")
+
+    // if(errorMessage)
+    // {
+    //     return (
+    //         <div className='text-lg text-center'>
+    //             {errorMessage}
+    //         </div>
+    //     )
+    // }
+
+    
 
     return (
-        <div className="flex flex-col items-center">
-            <div className="px-4 py-5 w-full">
-                <button className="border-black bg-gray-300 p-2 mx-5 my-5 rounded-md hover:bg-gray-400" onClick={filterRestaurants}>Filter out the best restaurants</button>
-                <h1 className="font-semibold py-5 px-5 text-xl flex justify-start">Top restaurant chains in Mumbai</h1>
-                <div className='flex flex-wrap justify-center gap-3'>
-                    {bestRestaurants.length === 0 ? <ShimmerCard /> : 
-                        bestRestaurants.map((restaurant) => {
+        <div className="flex flex-col items-center relative">
+            <div className="px-5 py-5 w-full">
+                
+                <div className="flex items-center w-full pb-4 px-5 justify-center">
+                    <button className="border-black bg-gray-300 p-2 mx-5 my-5 absolute left-5 rounded-md hover:bg-gray-400" onClick={filterRestaurants}>Filter out the best restaurants</button>
+                    
+                    <div className='flex items-center w-[50%]'>
+                        <input className='border-2 border-gray-300 focus:border-gray-400 h-9 p-2 ml-5 focus:outline-none rounded-lg w-full' type="text" value={searchText} onChange={(e)=>handleSearchText(e.target.value)} placeholder='Search for restaurants and food' /> 
+
+                        <button className='border-black text-sm bg-gray-300 px-3 py-2 mx-5 my-5 rounded-md hover:bg-gray-400' value={searchText} onClick={handleSearch}>Search</button>
+                    </div>
+
+                </div>
+
+                
+                {/* <div className='text-lg'>
+                    {searchText}
+                </div> */}
+                
+                {
+                    restaurantList.length===0 ?
+                        <h1 className='text-lg text-center'>No items match your search</h1>
+                    :
+                    <div className='flex flex-wrap justify-center gap-3'>
+                        <h1 className="font-semibold px-5 text-xl w-full flex justify-start">Top restaurant chains in Mumbai</h1>
+                    {restaurantList.length === 0 ? <ShimmerCard /> : //Means if no error, API call is successful. Also, till we don't get list of restaurantList, show ShimmerCard(empty string is considered as false,!false=true)
+                        restaurantList.map((restaurant) => {
                             return <RestaurantCard 
                             key={restaurant?.info?.id}
                             {...restaurant?.info} />
                         })
                     }
                 </div>
+
+                }
             </div>
         </div>
     )
 }
+
 export default CardContainer
