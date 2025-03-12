@@ -8,7 +8,7 @@ This project is a clone of Swiggy, a popular food delivery service, built using 
 
 ## Live Demo
 
-You can check out the live demo of the project [here](https://swiggy-sith.vercel.app){:target="_blank"}.
+You can check out the live demo of the project [here](https://swiggy-sith.vercel.app){::target="_blank"}.
 
 ## Requirements
 
