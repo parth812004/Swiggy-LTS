@@ -7,13 +7,14 @@ import ShimmerCard from './ShimmerCard'
 
 const CardContainer = () => {
     const restaurantDetails = []
-    const [restaurantList,setRestaurantList] = useState([]);
+    const [restaurantList,setRestaurantList] = useState([]); //(USED FOR RENDERING)Dynamically changing list on searching
+    const [mainList,setMainList] = useState([]); //mainList(USED FOR FILTERING) = o/g restaurant list(content same in both restaurantList and mainList)
     const [searchText,setSearchText] = useState("")
     const [errorMessage,setErrorMessage] = useState("");
 
 
     useEffect(() => {
-        const getRestaurantData = async () => {
+        const getRestaurantList = async () => {
             const response = await fetch(API_URL);
             try {
                 if(response.ok)
@@ -21,7 +22,9 @@ const CardContainer = () => {
                     console.log("response",response)
                     const data = await response.json();
                     const restaurants = data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+                    console.log("restaurants: ",restaurants)
                     setRestaurantList(restaurants);
+                    setMainList(restaurants);
                 }
                 else
                 {
@@ -53,7 +56,7 @@ const CardContainer = () => {
                 console.log("Error: ", error.message);
             }
         };
-        getRestaurantData();
+        getRestaurantList();
     }, []);
 
     const filterRestaurants = () =>{
@@ -70,7 +73,7 @@ const CardContainer = () => {
     }
 
     const handleSearch = () => {
-        const newData = restaurantList.filter((restaurant)=> (restaurant?.info?.name.includes(searchText)))
+        const newData = mainList.filter((restaurant)=> (restaurant?.info?.name.toLowerCase().includes(searchText.toLowerCase()))) //To remove case sensitivity, we always convert searchText in lowercase
         console.log("newData: ",newData)
         setRestaurantList(newData)
     }
@@ -108,6 +111,14 @@ const CardContainer = () => {
     //     )
     // }
 
+    // if(restaurantList.length === 0 && searchText.length>0)
+    // {
+    //     return(
+    //         <div className='text-lg text-center'>
+    //             No items match your search '{searchText}'
+    //         </div>
+    //     )
+    // }
     
 
     return (
@@ -117,10 +128,17 @@ const CardContainer = () => {
                 <div className="flex items-center w-full pb-4 px-5 justify-center">
                     <button className="border-black bg-gray-300 p-2 mx-5 my-5 absolute left-5 rounded-md hover:bg-gray-400" onClick={filterRestaurants}>Filter out the best restaurants</button>
                     
-                    <div className='flex items-center w-[50%]'>
-                        <input className='border-2 border-gray-300 focus:border-gray-400 h-9 p-2 ml-5 focus:outline-none rounded-lg w-full' type="text" value={searchText} onChange={(e)=>handleSearchText(e.target.value)} placeholder='Search for restaurants and food' /> 
+                    <div className='flex items-center w-[50%] mx-5 my-5'>
+                        <input 
+                            className='border-2 border-gray-300 focus:border-gray-400 h-9 p-2 mx-5 focus:outline-none rounded-lg w-full' 
+                            type="text" value={searchText} onChange={(e)=>handleSearchText(e.target.value)} placeholder='Search for restaurants and food' onKeyDown={(e) => {
+                                if (e.key === 'Enter' && searchText.trim().length>0) {
+                                    handleSearch();
+                                }
+                            }}
+                        /> 
 
-                        <button className='border-black text-sm bg-gray-300 px-3 py-2 mx-5 my-5 rounded-md hover:bg-gray-400' value={searchText} onClick={handleSearch}>Search</button>
+                        {searchText.trim() && <button className='border-black text-sm bg-gray-300 px-3 py-2  rounded-md hover:bg-gray-400' value={searchText} onClick={handleSearch}>Search</button>} {/* && is called short-circuit operator*/}
                     </div>
 
                 </div>
@@ -131,19 +149,24 @@ const CardContainer = () => {
                 </div> */}
                 
                 {
-                    restaurantList.length===0 ?
-                        <h1 className='text-lg text-center'>No items match your search</h1>
-                    :
                     <div className='flex flex-wrap justify-center gap-3'>
                         <h1 className="font-semibold px-5 text-xl w-full flex justify-start">Top restaurant chains in Mumbai</h1>
-                    {restaurantList.length === 0 ? <ShimmerCard /> : //Means if no error, API call is successful. Also, till we don't get list of restaurantList, show ShimmerCard(empty string is considered as false,!false=true)
-                        restaurantList.map((restaurant) => {
-                            return <RestaurantCard 
-                            key={restaurant?.info?.id}
-                            {...restaurant?.info} />
-                        })
-                    }
-                </div>
+
+                        {
+                            restaurantList.length === 0 ? (
+                                ( mainList.length === 0 ? 
+                                    (<ShimmerCard />) : <div className='text-lg text-center'>
+                                                            No items match your search '{searchText}'
+                                                        </div>
+                                    
+                                )
+                            ) : //Means if no error, API call is successful. Also, till we don't get list of restaurantList, show ShimmerCard(empty string is considered as false,!false=true)
+                                (restaurantList.map((restaurant) => {
+                                    return <RestaurantCard
+                                    {...restaurant?.info} />
+                                }))
+                        }
+                    </div>
 
                 }
             </div>
