@@ -1,8 +1,8 @@
 const ShimmerCard = () => {
-    return new Array(20).fill(0).map( ()=>{
+    return new Array(20).fill(0).map((card,index)=>{ //array index not preferred as key usually, but here we have no option
 
         return (
-          <div className="px-5">
+          <div key={index} className="px-5">
             <div className="flex flex-row py-3 w-[300px] h-[200px] rounded-md">
               <div
                 className=" w-full h-full object-cover rounded-2xl bg-[#f7f7f7]"

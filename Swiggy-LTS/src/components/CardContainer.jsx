@@ -2,69 +2,72 @@ import RestaurantCard from './RestaurantCard'
 import { useState,useEffect } from 'react'
 import { API_URL,IMG_URL } from '../constants/config'
 import ShimmerCard from './ShimmerCard'
+import useRestaurant from '../utilities/useRestaurant'
 
-// RESUME FROM 41:00(21/2/2025 Lecture)
+//Continue from 21:00 (Lecture 14)
 
 const CardContainer = () => {
-    const restaurantDetails = []
+
     const [restaurantList,setRestaurantList] = useState([]); //(USED FOR RENDERING)Dynamically changing list on searching
     const [mainList,setMainList] = useState([]); //mainList(USED FOR FILTERING) = o/g restaurant list(content same in both restaurantList and mainList)
     const [searchText,setSearchText] = useState("")
     const [errorMessage,setErrorMessage] = useState("");
+    const restaurantData = useRestaurant();  //Custom Hook, only used for fetching data from API. Data displaying will be done by CardContainer component
+    console.log("restaurantData from custom hook= ",restaurantData);
 
 
-    useEffect(() => {
-        const getRestaurantList = async () => {
-            const response = await fetch(API_URL);
-            try {
-                if(response.ok)
-                {
-                    console.log("response",response)
-                    const data = await response.json();
-                    const restaurants = data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
-                    console.log("restaurants: ",restaurants)
-                    setRestaurantList(restaurants);
-                    setMainList(restaurants);
-                }
-                else
-                {
-                    console.log("Error code: ",response.status)
-                    // throw new Error("Something went wrong...")
-                    if(response.status===400)
-                    {
-                        throw new Error("Bad Request, please contact the support team")
-                    }
-                    if(response.status===401)
-                    {
-                        throw new Error("Unauthorized request, kindly provide credentials")
-                    }
-                    if(response.status===403)
-                    {
-                        throw new Error("The requested content is forbidden")
-                    }
-                    if(response.status===404)
-                    {
-                        throw new Error("The server cannot find the requested resource")
-                    }
-                    else
-                    {
-                        throw new Error("Something went wrong...")
-                    }
-                }
-            } catch (error) {
-                setErrorMessage(error.message);
-                console.log("Error: ", error.message);
-            }
-        };
-        getRestaurantList();
-    }, []);
+    // useEffect(() => {             //To fetch the top restaurant chains in Mumbai
+    //     const getRestaurantList = async () => {
+    //         const response = await fetch(API_URL);
+    //         try {
+    //             if(response.ok)
+    //             {
+    //                 console.log("response",response)
+    //                 const data = await response.json();
+    //                 const restaurants = data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+    //                 console.log("restaurants: ",restaurants)
+    //                 setRestaurantList(restaurants);
+    //                 setMainList(restaurants);
+    //             }
+    //             else
+    //             {
+    //                 console.log("Error code: ",response.status)
+    //                 // throw new Error("Something went wrong...")
+    //                 if(response.status===400)
+    //                 {
+    //                     throw new Error("Bad Request, please contact the support team")
+    //                 }
+    //                 if(response.status===401)
+    //                 {
+    //                     throw new Error("Unauthorized request, kindly provide credentials")
+    //                 }
+    //                 if(response.status===403)
+    //                 {
+    //                     throw new Error("The requested content is forbidden")
+    //                 }
+    //                 if(response.status===404)
+    //                 {
+    //                     throw new Error("The server cannot find the requested resource")
+    //                 }
+    //                 else
+    //                 {
+    //                     throw new Error("Something went wrong...")
+    //                 }
+    //             }
+    //         } catch (error) {
+    //             setErrorMessage(error.message);
+    //             console.log("Error: ", error.message);
+    //         }
+    //     };
+    //     getRestaurantList();
+    // }, []);
 
     const filterRestaurants = () =>{
         console.log("Checking best restaurants near you...")
-        const filteredData = restaurantList.filter((restaurant) => {
+        const filteredData = restaurantData?.restaurantList.filter((restaurant) => {
             return restaurant?.info?.avgRating >= 4.5;
         })
-        setRestaurantList(filteredData)
+        restaurantData?.updateRestaurantList(filteredData)
         console.log("filteredData= ", filteredData)
     }
 
@@ -73,12 +76,12 @@ const CardContainer = () => {
     }
 
     const handleSearch = () => {
-        const newData = mainList.filter((restaurant)=> (restaurant?.info?.name.toLowerCase().includes(searchText.toLowerCase()))) //To remove case sensitivity, we always convert searchText in lowercase
+        const newData = restaurantData?.mainList.filter((restaurant)=> (restaurant?.info?.name.toLowerCase().includes(searchText.toLowerCase()))) //To remove case sensitivity, we always convert searchText in lowercase
         console.log("newData: ",newData)
-        setRestaurantList(newData)
+        restaurantData?.updateRestaurantList(newData)
     }
 
-    useEffect(()=>{
+    useEffect(()=>{ //To fetch resturant data like name, cuisines, avgRatings etc.
         console.log("useEffect() called")
         try 
         {
@@ -102,14 +105,14 @@ const CardContainer = () => {
     
     console.log("Page rendered")
 
-    // if(errorMessage)
-    // {
-    //     return (
-    //         <div className='text-lg text-center'>
-    //             {errorMessage}
-    //         </div>
-    //     )
-    // }
+    if(restaurantData?.errorMessage)
+    {
+        return (
+            <div className='text-lg text-center'>
+                {restaurantData?.errorMessage}
+            </div>
+        )
+    }
 
     // if(restaurantList.length === 0 && searchText.length>0)
     // {
@@ -153,17 +156,18 @@ const CardContainer = () => {
                         <h1 className="font-semibold px-5 text-xl w-full flex justify-start">Top restaurant chains in Mumbai</h1>
 
                         {
-                            restaurantList.length === 0 ? (
-                                ( mainList.length === 0 ? 
+                            restaurantData?.restaurantList.length === 0 ? (
+                                ( restaurantData?.mainList.length === 0 ? 
                                     (<ShimmerCard />) : <div className='text-lg text-center'>
                                                             No items match your search '{searchText}'
                                                         </div>
                                     
                                 )
                             ) : //Means if no error, API call is successful. Also, till we don't get list of restaurantList, show ShimmerCard(empty string is considered as false,!false=true)
-                                (restaurantList.map((restaurant) => {
+                                (restaurantData?.restaurantList.map((restaurant) => {
                                     return <RestaurantCard
-                                    {...restaurant?.info} />
+                                    {...restaurant?.info}
+                                    key={restaurant?.info?.id} />
                                 }))
                         }
                     </div>
