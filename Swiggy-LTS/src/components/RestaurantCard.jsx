@@ -1,12 +1,13 @@
 import { IMG_URL } from "../constants/config"
+import { Link } from "react-router"
 
-const RestautantCard = ({name,avgRating,sla,cuisines,locality,cloudinaryImageId}) =>{ 
+const RestautantCard = ({id,name,avgRating,sla,cuisines,locality,cloudinaryImageId}) =>{ 
     //{/* Can also write const RestautantCard = (props) =>{
     //{props.name}
     //{props.rating}, etc. in code} 
     //*/}
     return(
-        <div className="px-5">
+        <Link to={`/menu/${name}/${id}`} className="px-5">
             <div className="flex flex-row py-3 w-[300px] h-[200px]">
                 <img src={IMG_URL+cloudinaryImageId} className=" w-full h-full object-cover rounded-2xl" alt="demo img" />
             </div>
@@ -19,7 +20,7 @@ const RestautantCard = ({name,avgRating,sla,cuisines,locality,cloudinaryImageId}
                     <div className="font-light text-gray-500 w-[300px]">{cuisines.join(', ')}</div>
                     <div className="font-light text-gray-500">{locality}</div>
             </div>
-        </div>
+        </Link>
     )
 }
 
