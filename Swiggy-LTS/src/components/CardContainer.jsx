@@ -57,11 +57,10 @@ const CardContainer = () => {
         <div className="flex flex-col items-center relative">
             <div className="px-5 py-5 w-full">
                 
-                <div className="flex items-center w-full pb-4 px-5 justify-center">
-                    <button className="border-black bg-gray-300 p-2 mx-5 my-5 absolute left-5 rounded-md hover:bg-gray-400" onClick={filterRestaurants}>Filter out the best restaurants</button>
+                <div className="flex flex-col items-center w-full pb-4 px-5 sm:flex-row sm:flex-wrap sm:justify-center">
+                    <button className="border-black bg-gray-300 p-2 mx-5 my-5 rounded-md hover:bg-gray-400 sm:absolute sm:left-5" onClick={filterRestaurants}>Filter out the best restaurants</button>
                     
-                    <SearchBar mainData={mainList} update={updateRestaurantList} searchText={searchText} updateSearchText={setSearchText}/>
-
+                    <SearchBar mainData={mainList} update={updateRestaurantList} searchText={searchText} updateSearchText={setSearchText} className="w-full sm:w-auto mt-4 sm:mt-0"/>
                 </div>
                 
                 {
