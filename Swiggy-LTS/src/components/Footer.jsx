@@ -90,22 +90,24 @@ const Footer = ()=>{
             </div>
 
             <div className='px-20'>
-                <div className='min-w-fit h-0.5 bg-slate-900'>
+                <div className='min-w-fit w-full h-0.5 bg-slate-900'>
                 </div>
             </div>
 
-            <div className=' pt-10 pb-10 flex items- justify-center items-center gap-10'>
-                <div className='font-bold text-2xl'>
-                    For better experience, download the Swiggy app now
-                </div>
-                <div className='flex justify-evenly gap-5'>
-                    <Link to="https://apps.apple.com/in/app/swiggy-food-instamart-dineout/id989540920" target='_blank' className='cursor-pointer'>
-                        <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_200,h_65/icon-AppStore_lg30tv" alt="AppStore" />
-                    </Link>
+            <div className='pt-10 pb-10 flex justify-center mx-auto items-center gap-10'>
+                <div className='flex gap-10 items-center flex-wrap'>
+                    <div className='font-bold text-2xl text-center md:text-sm'>
+                        For better experience, download the Swiggy app now
+                    </div>
+                    <div className='flex justify-evenly gap-5 mx-auto'>
+                        <Link to="https://apps.apple.com/in/app/swiggy-food-instamart-dineout/id989540920" target='_blank' className='cursor-pointer'>
+                            <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_200,h_65/icon-AppStore_lg30tv" alt="AppStore" />
+                        </Link>
 
-                    <Link to="https://play.google.com/store/apps/details?id=in.swiggy.android&referrer=utm_source%3Dswiggy%26utm_medium%3Dheader" target='_blank' className='cursor-pointer'>
-                        <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_200,h_65/icon-GooglePlay_1_zixjxl" alt="GooglePlay" />
-                    </Link>
+                        <Link to="https://play.google.com/store/apps/details?id=in.swiggy.android&referrer=utm_source%3Dswiggy%26utm_medium%3Dheader" target='_blank' className='cursor-pointer'>
+                            <img src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_200,h_65/icon-GooglePlay_1_zixjxl" alt="GooglePlay" />
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>

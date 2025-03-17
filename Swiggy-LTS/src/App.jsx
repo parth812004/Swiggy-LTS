@@ -8,9 +8,10 @@ import { Outlet } from 'react-router'
 const App = ()=> {
   return (
     <>
-      <Header/>
-      <Outlet/> {/* Outlet can take 3 possible values: <Body/>, <About/>, <Contact/> */}
-      <Footer/>
+       <Header/>
+      <Outlet/> {/*Outlet can take 3 possible values: <Body/>, <About/>, <Contact/> */}
+      <div className='min-w-screen min-h-screen'> <Footer/></div>
+      
     </>
   )
 }
