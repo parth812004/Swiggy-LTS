@@ -12,16 +12,16 @@ const CardContainer = () => {
     const {restaurantList,mainList,errorMessage,updateRestaurantList} = useRestaurant();  //Custom Hook, only used for fetching data from API. Data displaying will be done by CardContainer component
 
     const filterRestaurants = () =>{
-        console.log("Checking best restaurants near you...")
+        // console.log("Checking best restaurants near you...")
         const filteredData = restaurantList.filter((restaurant) => {
             return restaurant?.info?.avgRating >= 4.5;
         })
         updateRestaurantList(filteredData)
-        console.log("filteredData= ", filteredData)
+        // console.log("filteredData= ", filteredData)
     }
 
     useEffect(()=>{ //To fetch resturant data like name, cuisines, avgRatings etc.
-        console.log("useEffect() called")
+        // console.log("useEffect() called")
         try 
         {
             const getRestaurantData = async() =>{
@@ -32,17 +32,17 @@ const CardContainer = () => {
                 // console.log("food data= ",data?.data?.cards[0]?.card?.card?.imageGridCards?.info) 
                 // console.log("restaurant data= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants) 
                 // console.log("restaurantDetails[]= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
-                console.log("avgRating= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants?.info?.avgRating)
+                // console.log("avgRating= ",data?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants?.info?.avgRating)
             }
             getRestaurantData()
         } 
         catch (error) 
         {
-            console.log("Error: ",error)
+            // console.log("Error: ",error)
         }
     },[])
     
-    console.log("Page rendered")
+    // console.log("Page rendered")
 
     if(errorMessage)
     {
