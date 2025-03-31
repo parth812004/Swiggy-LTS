@@ -12,7 +12,7 @@ const RestautantCard = ({id,name,avgRating,sla,cuisines,locality,cloudinaryImage
                 <img src={IMG_URL+cloudinaryImageId} className=" w-full h-full object-cover rounded-2xl" alt="demo img" />
             </div>
             <div className="leading-6">
-                <div className="text-xl font-semibold">{name}</div>
+                <div className="text-xl font-semibold max-w-[300px]">{name}</div>
                     <div className="flex">
                         <img src="https://cdn2.iconfinder.com/data/icons/greenline/512/star-512.png" className="w-6" alt="icon" />  
                         <div className="pl-2 font-light">{avgRating} • {sla?.deliveryTime} mins</div>

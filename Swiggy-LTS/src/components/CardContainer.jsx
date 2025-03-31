@@ -9,6 +9,7 @@ import SearchBar from './SearchBar'
 
 const CardContainer = () => {
     const [searchText,setSearchText] = useState("")
+    const [filterOn,setFilterOn] = useState(false)
     const {restaurantList,mainList,errorMessage,updateRestaurantList} = useRestaurant();  //Custom Hook, only used for fetching data from API. Data displaying will be done by CardContainer component
 
     const filterRestaurants = () =>{
@@ -17,7 +18,13 @@ const CardContainer = () => {
             return restaurant?.info?.avgRating >= 4.5;
         })
         updateRestaurantList(filteredData)
+        setFilterOn(true)
         // console.log("filteredData= ", filteredData)
+    }
+
+    const clearFilter = () => {
+        updateRestaurantList(mainList)
+        setFilterOn(false)
     }
 
     useEffect(()=>{ //To fetch resturant data like name, cuisines, avgRatings etc.
@@ -61,6 +68,8 @@ const CardContainer = () => {
                     <button className="border-black bg-gray-300 p-2 mx-5 my-5 rounded-md hover:bg-gray-400 sm:absolute sm:left-5" onClick={filterRestaurants}>Filter out the best restaurants</button>
                     
                     <SearchBar mainData={mainList} update={updateRestaurantList} searchText={searchText} updateSearchText={setSearchText} className="w-full sm:w-auto mt-4 sm:mt-0"/>
+
+                    { filterOn ? <button className="border-black bg-gray-300 p-2 mx-5 rounded-md hover:bg-gray-400 sm:absolute sm:right-5" onClick={clearFilter}>Clear Filters</button> : console.log("No FILTER")}
                 </div>
                 
                 {
