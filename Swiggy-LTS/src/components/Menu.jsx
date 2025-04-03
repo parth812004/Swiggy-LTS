@@ -3,6 +3,7 @@ import { useParams } from "react-router"
 import useRestaurantMenu from "../utilities/useRestaurantMenu";
 import RestaurantBanner from "./RestaurantBanner";
 import RestaurantInfo from "./RestaurantInfo";
+import CategoryContainer from "./CategoryContainer";
 
 //useParams is used to extract parameters, which is useful in dynamic routing
 
@@ -14,10 +15,20 @@ const Menu = () => {
     // console.log("params",params)
     const data = useRestaurantMenu(params?.id)
     // console.log("Menu Data is ",data)  
+
+    const {title, normalMenu, nestedMenu} = data
+    // console.log("complete data",data)
+    
+    console.log("collection: ",data?.normalMenu)
     return (
-        <div>
+        <div className="w-10/12 max-w-[800px] mx-auto">
             <RestaurantBanner title={data?.title?.name}/>
             <RestaurantInfo info={data?.title}/>
+            {
+                normalMenu.map(category => {
+                    return <CategoryContainer categoryTitle={category?.card?.card?.title} count={category?.card?.card?.itemCards?.length} collection={category?.card?.card?.itemCards}/>
+                })
+            }
         </div>
     )
 }

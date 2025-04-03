@@ -7,7 +7,7 @@ const RestautantCard = ({id,name,avgRating,sla,cuisines,locality,cloudinaryImage
     //{props.rating}, etc. in code} 
     //*/}
     return(
-        <Link to={`/menu/${name}/${id}`} className="px-5">
+        <Link to={`/menu/${name}/${id}`} className="px-5 transition ease-in-out hover:translate-y-1 hover:scale-95 duration-300">
             <div className="flex flex-row py-3 w-[300px] h-[200px]">
                 <img src={IMG_URL+cloudinaryImageId} className=" w-full h-full object-cover rounded-2xl" alt="demo img" />
             </div>
