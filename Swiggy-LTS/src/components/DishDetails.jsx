@@ -1,9 +1,11 @@
 import { dishImgUrl } from "../constants/config"
+import { useState } from "react"
 // import useRestaurantMenu from "../utilities/useRestaurantMenu"
 
 const DishDetails = ({isVeg,imgId,title,cost,avgRating,ratingCount,description}) => {
+    const [showFullDescription,setshowFullDescription] = useState(false) //false by default because we are not showing complete description initially. Only after clicking '...more' we will be able to see full description. {false=>full description not shown ; true=>full description}
     return (
-        <div className="flex justify-between py-7 border-b-[1px] border-gray-400">
+        <div className="flex justify-between py-7 border-b-[1px] border-gray-200">
             <div className="max-w-[600px]">
                 {isVeg ? (<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <rect x="3" y="3" width="18" height="18" rx="6" stroke="#007A4D" strokeWidth="2" fill="white"/>
@@ -25,7 +27,15 @@ const DishDetails = ({isVeg,imgId,title,cost,avgRating,ratingCount,description})
                             </path>
                     </svg><span className="text-[#116649] text-sm font-semibold">{avgRating}</span> <span className="text-sm font-normal text-[#02060C99]">({ratingCount})</span></p>
 
-                <p className="py-2 text-[#02060C99] font-light">{description}</p>
+                <div>
+                    <span className="py-2 text-[#02060C99] font-light">
+                        { !showFullDescription ? description.split(" ").slice(0,25).join(" ") : description}  </span>
+                        <span>{
+                            description?.length > 25 &&
+                            <button onClick={()=>setshowFullDescription(!showFullDescription)}>{ showFullDescription ? "  ...less" : "  ...more"}</button>
+                        }
+                    </span> 
+                </div>
             </div>
             <div className="max-w-[200px]">
                 <img src={dishImgUrl+imgId} className="w-[160px] h-[160px] rounded-3xl" />
