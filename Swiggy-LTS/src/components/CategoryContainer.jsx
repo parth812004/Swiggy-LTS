@@ -1,8 +1,8 @@
 import DishDetails from "./DishDetails"
 
-const CategoryContainer = ({categoryTitle,count,collection}) => { //This is the main container of all dish categories like recommended etc.
+const CategoryContainer = ({categoryTitle,count,collection,paddingTop}) => { //This is the main container of all dish categories like recommended etc.
     return (
-        <div className="pt-8">
+        <div className={`${paddingTop}`}>
             <h1 className="text-lg font-semibold">{categoryTitle} ({count})</h1>
             {
                 collection.map(foodItem => {

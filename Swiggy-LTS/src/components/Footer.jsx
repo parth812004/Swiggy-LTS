@@ -1,4 +1,5 @@
 import Logo from '../assets/Logo.png'
+import useOnlineStatus  from '../utilities/useOnlineStatus'
 import { FaLinkedin } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
@@ -8,6 +9,7 @@ import { Link } from 'react-router';
 
 // <Link/> helps to change routes without reloading(or sending server request). <a> tag sends new request to server, resulting in full page reload
 const Footer = ()=>{
+    const isOnline = useOnlineStatus()
     return (
         <div className="bg-zinc-200 bottom-0 w-full">
             <div className="px-32 py-10 flex justify-evenly gap-10 items-start md:text-lg flex-wrap">
@@ -80,6 +82,25 @@ const Footer = ()=>{
                                     <Link to="#" className='hover:text-gray-700'><FaFacebookF/></Link><br />
                                     <Link to="#" className='hover:text-gray-700'><FaPinterest/></Link><br />
                                     <Link to="#" className='hover:text-gray-700'><FaTwitter/></Link><br />
+                                </div>
+                            </div>  
+                            <div className="font-semibold text-lg leading-6 py-20">
+                                Internet Status:
+                                <div className='font-light flex justify-between text-gray-500 gap-2'>
+                                    {
+                                        isOnline ? 
+                                        <div className='flex items-center'>
+                                            <h1 className='flex items-center gap-3 text-green-500'>Online <span className="material-symbols-outlined">
+                                            cell_tower
+                                            </span></h1>
+                                        </div>
+                                        : 
+                                        <div className='flex items-center'>
+                                            <h1 className='flex items-center gap-3 text-red-500'>Offline <span className="material-symbols-outlined">
+                                            signal_disconnected
+                                            </span></h1>
+                                        </div>
+                                    }
                                 </div>
                             </div>    
                         </div>

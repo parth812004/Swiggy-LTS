@@ -23,18 +23,31 @@ const Menu = () => {
     console.log("collection: ",data?.normalMenu)
     return (
         <div className="w-10/12 max-w-[800px] mx-auto">
-            <RestaurantBanner title={data?.title?.name}/>
+            <RestaurantBanner title={data?.title?.name}
+                paddingBottom={"pb-10"}
+                paddingTop={"pt-16"}
+                fontSize={"text-3xl"}
+            />
             <RestaurantInfo info={data?.title}/>
-            {/* {
+            {
                 normalMenu.map(category => {
-                    return <CategoryContainer categoryTitle={category?.card?.card?.title} count={category?.card?.card?.itemCards?.length} collection={category?.card?.card?.itemCards}/>
+                    return <CategoryContainer 
+                        categoryTitle={category?.card?.card?.title} 
+                        count={category?.card?.card?.itemCards?.length} 
+                        collection={category?.card?.card?.itemCards}
+                        paddingTop={"pt-8"}
+                    />
                 })
-            } */}
+            }
             
             {
                 nestedMenu.map((mainCategory) => (
                     <div key={mainCategory?.card?.card?.title}>
-                        <RestaurantBanner title={mainCategory?.card?.card?.title} />
+                        <RestaurantBanner title={mainCategory?.card?.card?.title} 
+                            paddingBottom={"pb-3"}
+                            paddingTop={"pt-5"}
+                            fontSize={"text-xl"}
+                        />
                         <>
                             {
                                 mainCategory?.card?.card?.categories.map((subCategory) => (
@@ -43,6 +56,7 @@ const Menu = () => {
                                             categoryTitle={subCategory?.title}
                                             count={subCategory?.itemCards?.length} 
                                             collection={subCategory?.itemCards}
+                                            paddingTop={"pt-3"}
                                         />
                                     </div>
                                 ))
