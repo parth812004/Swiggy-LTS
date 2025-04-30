@@ -5,6 +5,7 @@ import useRestaurantMenu from "../utilities/useRestaurantMenu";
 import RestaurantBanner from "./RestaurantBanner";
 import RestaurantInfo from "./RestaurantInfo";
 import CategoryContainer from "./CategoryContainer";
+import MenuShimmerCard from "./MenuShimmerCard";
 
 //useParams is used to extract parameters, which is useful in dynamic routing
 
@@ -22,7 +23,10 @@ const Menu = () => {
     
     console.log("collection: ",data?.normalMenu)
     return (
-        <div className="w-10/12 max-w-[800px] mx-auto">
+        (data?.normalMenu.length === 0) ?
+            <MenuShimmerCard/>
+        :
+        (   <div className="w-10/12 max-w-[800px] mx-auto">
             <RestaurantBanner title={data?.title?.name}
                 paddingBottom={"pb-10"}
                 paddingTop={"pt-16"}
@@ -65,7 +69,7 @@ const Menu = () => {
                     </div>
                 ))
             }
-        </div>
+        </div>) 
     )
 }
 
