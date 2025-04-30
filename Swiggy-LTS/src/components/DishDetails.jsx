@@ -30,7 +30,7 @@ const DishDetails = ({isVeg,imgId,title,cost,avgRating,ratingCount,description})
                 <div>
                     <span className="py-2 text-[#02060C99] font-light">
                         {/* eg. !false = true=> true ka block will get executed. therefore, we see less textual content; and VICEE-VERSA*/}
-                        { !showFullDescription ? (description || "").split(" ").slice(0,25).join(" ") : (description || "")}  </span>
+                        { !showFullDescription ? description.split(" ").slice(0,25).join(" ") : description}  </span>
                         <span>{
                             description?.length > 25 &&
                             <button onClick={()=>setshowFullDescription(!showFullDescription)}>{ showFullDescription ? "  ...less" : "  ...more"}</button>
