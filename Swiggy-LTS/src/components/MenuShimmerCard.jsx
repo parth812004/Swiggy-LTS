@@ -13,7 +13,7 @@ const MenuShimmerCard = () => {
                             <div className="ml-2 w-[135px] font-semibold bg-[#f7f7f7] animate-pulse"></div>
                         </div>
                         •
-                        <div className="font-semibold w-24 bg-[#f7f7f7]"></div>
+                        <div className="font-semibold w-24 bg-[#f7f7f7] animate-pulse"></div>
                     </div>
 
                     <div className="text-orange-500 h-5 my-2 w-4/12 underline bg-[#f7f7f7] animate-pulse"></div>
@@ -35,22 +35,22 @@ const MenuShimmerCard = () => {
             </div>
 
             {/* DishDetails Shimmer Card */}
-            <div className="h-5 bg-[#f7f7f7] w-36 mt-9"></div>
+            <div className="h-5 bg-[#f7f7f7] animate-pulse w-36 mt-9"></div>
             {Array.from({ length: 10 }).map((_, index) => (
                 <div
                     key={index}
                     className="flex justify-evenly py-7 pt-8 border-b-[1px] border-gray-200"
                 >
                     <div className="w-[600px]">
-                        <p className="h-4 mt-6 w-5 bg-[#f7f7f7]"></p>
-                        <p className="h-4 mt-2 w-36 bg-[#f7f7f7]"></p>
-                        <p className="h-4 mt-2 w-7 bg-[#f7f7f7]"></p>
-                        <p className="h-4 mt-2 w-8 bg-[#f7f7f7]"></p>
-                        <p className="h-4 mt-2 w-full bg-[#f7f7f7]"></p>
-                        <p className="h-4 mt-2 w-full bg-[#f7f7f7]"></p>
+                        <p className="h-4 mt-6 w-5 bg-[#f7f7f7] animate-pulse"></p>
+                        <p className="h-4 mt-2 w-36 bg-[#f7f7f7] animate-pulse"></p>
+                        <p className="h-4 mt-2 w-7 bg-[#f7f7f7] animate-pulse"></p>
+                        <p className="h-4 mt-2 w-8 bg-[#f7f7f7] animate-pulse"></p>
+                        <p className="h-4 mt-2 w-full bg-[#f7f7f7] animate-pulse"></p>
+                        <p className="h-4 mt-2 w-full bg-[#f7f7f7] animate-pulse"></p>
                     </div>
                     <div className="w-[200px]">
-                        <div className="w-[160px] h-[160px] ml-auto mr-0 rounded-3xl bg-[#f7f7f7]"></div>
+                        <div className="w-[160px] h-[160px] ml-auto mr-0 rounded-3xl bg-[#f7f7f7] animate-pulse"></div>
                     </div>
                 </div>
             ))}
