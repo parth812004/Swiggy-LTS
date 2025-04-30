@@ -1,24 +1,21 @@
 
 const MenuShimmerCard = () => {
     return (
-        <div className="px-52">
-            <div class="flex flex-row pt-16 pb-10"><div className="h-8 w-20 bg-[#f7f7f7]"></div></div>
+        <div className="w-10/12 max-w-[800px] mx-auto">
+            <div className="flex flex-row pt-16 pb-10"><div className="h-8 w-3/12 bg-[#f7f7f7] animate-pulse"></div></div>
             <div className="p-4 rounded-[36px] bg-gradient-to-t from-gray-300 to-white">
                 <div className="px-5 py-4 rounded-[20px] bg-white border-[1px] border-gray-300">
                     <div className="flex gap-3">
                         <div className="flex">
                             <img src="https://cdn2.iconfinder.com/data/icons/greenline/512/star-512.png" className="w-6" alt="icon" />  
-                            <div className="pl-2 font-semibold bg-[#f7f7f7]"></div>
+                            <div className="ml-2 w-[135px] font-semibold bg-[#f7f7f7] animate-pulse"></div>
                         </div>
                         •
-                        <div className="font-semibold bg-[#f7f7f7]">
-                            
-                        </div>
+                        <div className="font-semibold w-24 bg-[#f7f7f7]"></div>
                     </div>
 
-                    <div className="text-orange-500 underline py-2 bg-[#f7f7f7]">
-                        
-                    </div>
+                    <div className="text-orange-500 h-5 my-2 w-4/12 underline bg-[#f7f7f7] animate-pulse"></div>
+
                     <div className="flex">
                         <div className="flex flex-col items-center pr-4 pt-3">
                             <div className="bg-gray-300 rounded-[50%] w-2 h-2"></div> {/* first circle */}
@@ -26,8 +23,8 @@ const MenuShimmerCard = () => {
                             <div className="bg-gray-300 rounded-[50%] w-2 h-2"></div> {/* last circle */}
                         </div>
                         <div className="flex flex-col leading-[33px]">
-                            <div className="font-semibold flex flex-row bg-[#f7f7f7]"> <h1 className="font-light text-gray-500 pl-2 bg-[#f7f7f7]"></h1></div>
-                            <div className="font-semibold bg-[#f7f7f7]"> </div>
+                            <div className="font-semibold mt-2 flex flex-row bg-[#f7f7f7] animate-pulse"> <h1 className="font-light h-4 pl-2 w-32 bg-[#f7f7f7] animate-pulse"></h1></div>
+                            <div className="font-semibold mt-5 h-4 pl-2 w-32 bg-[#f7f7f7] animate-pulse"></div>
                         </div>
                     </div>
                 </div>
