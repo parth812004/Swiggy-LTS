@@ -19,10 +19,10 @@ const Footer = ()=>{
                     </div>
                 </div>
                 <div className='flex justify-between gap-20 flex-col md:flex-row'>
-                    <div className='flex flex-col  md:flex-row gap-20 w-full md:text-xl'>
-                        <div className="font-semibold text-lg leading-10">
+                    <div className='flex flex-col md:flex-row gap-20 w-full md:text-xl'>
+                        <div className="font-semibold w-full text-lg leading-10">
                             Company
-                            <div className='font-light text-gray-500'>
+                            <div className='font-light text-nowrap text-gray-500'>
                                 <Link to="/about">About Us</Link><br />
                                 <Link to="#">Swiggy Corporate</Link><br />
                                 <Link to="#">Careers</Link><br />
@@ -44,7 +44,7 @@ const Footer = ()=>{
                                 </div>    
                                 <div className="font-semibold text-lg leading-10 py-20 w-full">
                                         Legal
-                                        <div className='font-light text-gray-500'>
+                                        <div className='font-light text-nowrap text-gray-500'>
                                             <Link to="#">Terms & Conditions</Link><br />
                                             <Link to="#">Cookie Policy</Link><br />
                                             <Link to="#">Privacy Policy</Link><br />
