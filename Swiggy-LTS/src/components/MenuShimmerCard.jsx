@@ -35,7 +35,7 @@ const MenuShimmerCard = () => {
             </div>
 
             {/* DishDetails Shimmer Card */}
-            <div className="h-5 bg-[#f7f7f7] w-20 mt-9"></div>
+            <div className="h-5 bg-[#f7f7f7] w-36 mt-9"></div>
             {Array.from({ length: 10 }).map((_, index) => (
                 <div
                     key={index}
